@@ -55,3 +55,12 @@ const lineObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.55 });
 
 lines.forEach(l => lineObserver.observe(l));
+
+// Register the service worker so the page is installable and works offline.
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js').catch((err) => {
+      console.warn('Service worker registration failed:', err);
+    });
+  });
+}
